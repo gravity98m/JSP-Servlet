@@ -1,0 +1,309 @@
+정규태
+JSP,Spring
+jgt8731@itwillbs.co.kr
+
+https://cafe.naver.com/learntimes
+
+운영체제, 자료구조, 네트워크,데이터베이스
+알고리즘
+
+JSP => JAVA + Servlet,JSP +HTML(JS)
+
+* 서버 : 정보,서비스를 제공하는 컴퓨터
+* 클라이언트 : 정보,서비스 제공받는 컴퓨터
+* 통신프로토콜 : (http) 통신규약   
+       - 어떻게 접속?
+       - 어떤 형태로 처리?
+       - 어떤 속도로 처리?
+
+* TCP / IP 프로토콜 
+  - 애플리케이션 층 : 실제로 사용되는 인터넷 응용프로그램
+  - 트랜스포트 층 : 데이터 전송시 에러검증,수정
+  - 네트워크 층 : 패킷단위로 데이터를 정확한 위치로 전달
+  - 데이터 링크 층 : 랜카드 제어 및 데이터 통신을 위한 HW제어
+
+애플리케이션 층	 <----> 	애플리케이션 층
+		(가상의 데이터 송수신)
+트랜스포트층(TCP/UDP)	트랜스포트층(TCP/UDP)
+
+네트워크 층(IP 인터넷층)  	네트워크 층(IP 인터넷층)
+	  	   <--->
+		(실질적인 데이터 송수신)
+데이터 링크 층		데이터 링크 층
+
+
+* IP주소 : 인터넷에서 컴퓨터(hsot)를 구분하는 고유한 번호(전화번호)
+  127.0.0.1 => localhost(나자신) 
+
+  윈도우 + R => 'cmd'검색
+  > ping -t [192.168.7.200]
+  > ping -t 127.0.0.1
+
+* 포트번호 (port) : 인터넷상에서 사용되는 응용프로그램을 구분하기위한 번호 (1024 이하의 번호는 사용X) 
+    tomcat 8080   oracle 8080   mysql 3306
+
+
+D:\workspace_jsp
+
+
+* 웹 페이지 구성 : 정적데이터 (HTML,CSS,JS,IMG), 동적데이터(DB정보) 
+  
+  정적페이지(데이터) => WEB서버
+  동적페이지(데이터) => WAS(Web Application Server)
+
+
+  클라이언트
+    크롬	  => 1. www.naver.com 요청 
+         => 2. DNS서버  (도메인 <->IP주소) 	  => 3. WEB서버 (정적데이터)
+
+         5. www.naver.com 페이지 확인     <= 4. 응답정보를 HTML로 구성 전달   
+
+   
+    		-> 요청  -> 	    ->      ->
+	클라이언트		   WEB 서버 	WAS	DB(Mysql)
+		<-응답정보<-          <-      <-
+
+	
+          
+
+
+D:\workspace_jsp\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\work\Catalina\localhost\JSP\org\apache\jsp\jsp1
+
+
+* 데이터 전달방식 (p25~)
+
+  GET방식 : 데이터 전달시 URL에 전달
+ 			데이터의 길이가 256byte를 넘길수 없음
+ 			데이터 전송속도가 빠름 
+ 			데이터가 URL에 노출 (보안적 위험)
+ 
+  http://localhost:8088/JSP/jsp1/itwill.jsp ?이름1=값1&이름2=값2 		 
+  
+  POST방식 : 데이터 전달시 BODY에 전달
+             데이터 길이 제약이 없음
+             데이터 전송속도가 느림
+             데이터가 BODY에 담겨있기때문에 보안적 우수
+  
+  http://localhost:8088/JSP/jsp1/itwill.jsp
+  
+
+ *  회원관리 프로그램
+ 
+ 	- 회원가입
+ 	- 회원 로그인 / 로그아웃
+ 	- 회원정보 조회
+ 	- 회원정보 수정
+ 	- 회원정보 삭제
+ 	- (관리자) 모든 회원의 정보 조회
+   
+   
+   * 회원 관리 프로그램
+   	
+   	~~Form.jsp 실행 : 사용자의 정보를 입력받음
+   	
+   		| 	정보(request-parameter) 
+   				=> MemberBean(자바빈 객체) : 테이블 정보를 한 번에 저장하는 객체
+   				
+   		
+   	
+   	~~Pro.jsp 실행 : 입력한 사용자의 정보를 처리 (액션태그 <jsp:useBean~ >)
+   						
+   						=> MemberDAO 객체 : DB에 관한 모든 동작 수행
+   						=> DB에 연결해서 저장/수정/삭제/조회 메서드로 표현
+   						=> Pro.jsp 페이지에서는 직접 DB호출 X
+   						   DAO 간접적으로 처리 (객체 결합도를 줄이는 작업)
+   	
+
+
+
+
+	* 예외 : 예상하지 못한 상황(비정상적 종료)
+		=> 실행 후 확인가능 (메모리 관련 오류가 많음)
+		
+	* 예외 처리 : 발생한 예외때문에 프로그램을 종료X
+				  예외는 예외대로 처리하고 프로그램은 정상 실행하도록 처리
+	
+	1) throws : 예외를 직접 처리 X, 메서드를 호출하는 대상에게 위임
+	
+	2) try-catch : 예외를 직접 처리하는 구문.
+	
+	try{
+		예외가 발생할지도 모르는 코드 작성
+	
+	}catch(Exception e){
+		예외가 발생 시 처리 구문 작성
+		
+	}finally{
+		예외 발생 여부와 상관없이 무조건 한 번 실행하는 구문
+		
+	}
+	
+
+	* 답글 처리 로직
+	
+	re_ref : 그룹번호, 답글이라면 원래글의 번호와 같음
+			=> 일반글	(bno == re_ref)
+			=> 답글	 	(re_ref == 일반글(원글) re_ref)
+	re_lev : 레벨값 (들여쓰기)
+			=> 일반글 = 0
+			=> 답글  1,2,3, ... ( 원글 lev + 1 )
+	re_seq : 순서값 (답글 정렬)
+			=> 일반글 = 0
+			=> 답글 1,2,3...	( 원글 seq +1 )
+	
+	----------------------------------------------------
+	bno		subject		re_ref		re_lev		re_seq
+	----------------------------------------------------
+	1		일반글1		1			0			0
+	2		일반글2		2			0			0
+	3		일반글3		3			0			0
+	4		답글1-1		1			1			2
+	5		답글2-1		2			1			1
+	6		답글3-1		3			1			1
+	7		답글1-2		1			1			2
+	8		일반글4		8			0			0
+	9		답글1-1-1	1			2			3
+	10 		답글2-1-1	2			2			2
+	
+	
+	
+	* re_ref 내림차순, re_seq 오름차순 정렬
+	
+	----------------------------------------------------
+	bno		subject			re_ref		re_lev		re_seq
+	----------------------------------------------------
+	10		일반글4			10			0			0	
+	3		일반글3			3			0			0
+	2		일반글2			2			0			0
+	6		>답2-1			2			1			1
+	7 		>답2-2			2			1			2(수정)
+	1		일반글1			1			0			0
+	4		>답1-1			1			1			1
+	8 		>>답1-1-1		1			2			2
+	9		>>>답1-1-1-1	1			3			3	
+	5		>답1-2			1			1			4(수정)
+	
+	
+	* 객체 생성 == 파일업로드
+		MultipartRequest multi 
+			= new MultipartRequest(
+				request(폼태그의 정보), 
+				path(파일업로드될 경로(서버의 경로)),
+				maxSize(파일 업로드 크기),
+				"UTF-8"(파일명 인코딩),
+				new DefaultFileRenamePolicy() (파일이름 중복 처리객체)
+				);
+		
+	* 서블릿 (Servlet) : 웹 서버에서 실행되는 자바 클래스파일
+  
+   	JSP 페이지 -> JAVA파일(서블릿) -> Class 파일
+   
+   => 서블릿 객체를 직접 생성
+   
+  
+	* 서블릿 생성 규칙
+  	1) javax.servlet.Servlet 인터페이스 객체를 구현하기
+  	2)  1번의 동작을 하기 어려운경우, javax.servlet.http.HttpSerlvet 상속하기
+ 	 3) doGet() / doPost()메서드 구현 (오버라이딩)
+  	4) 전달인자로  	javax.servlet.http.HttpServletRequest, 
+                  	javax.servlet.http.HttpSerlvetResponse 사용해야함.
+	  5) java.io.IOExcetion, javax.servlet.ServletExcetion을 처리해야함(예외처리)
+	  6) web.xml (배포서술자) 서블릿과 주소(url) 매핑
+	    => servlet 2.3이후에서는 어노테이션으로 대체 @WebServlet()                    
+	  
+	  
+	  클라이언트
+	  페이지 요청 ->	웹서버				->  WAS				->  DB
+	  					(정적데이터처리)	  (동적데이터 처리)
+	  					html,css,js,img...	  서블릿(컨테이너)생성    
+	  										  주소(url)-코드 매핑(연결)
+	  										   service() 메서드 호출
+	  										   doGET()/doPOST() 호출(방식에따라서)
+	  									       동작 처리 후 응답정보를 만들어서 리턴
+	  
+	
+	   * JSP - Servlet
+	   
+	   => .jsp 파일은 .java파일(서블릿)으로 변경 후 .class파일로 컴파일후 시행
+	   
+	      jsp - 스크립틀릿 <% %>    servlet - service()안에 구현
+	      jsp - 표현식 <%=name %>	servlet - service()안에 구현 / out.println(name)
+	      jsp - 선언문 <%!   %>		servlet - 서블릿 클래스의 멤버형태로 변경
+	      jsp - html태그			servlet - service()안에 구현 / out.write()
+	      jsp - 디렉티브 <%@ %>     servlet - 객체 생성시 참고
+	   
+	   
+		D:\shared\workspace_jsp\.metadata\.plugins\
+		org.eclipse.wst.server.core\tmp0\
+		work\Catalina\localhost\JSP\org\apache\jsp
+	
+	
+	
+	
+	    * EL(Expression Language) 표현식
+	     => out.println() / <%= %>  사용해서 출력  (x)
+	        ${   }  형태로 변경
+	
+	    * 라이브러리 설치 필수
+	    taglibs-standard-impl-1.2.5.jar
+		taglibs-standard-jstlel-1.2.5.jar
+		taglibs-standard-spec-1.2.5.jar
+		
+		 ${변수명}   <%=변수명%> 동일한 의미
+		 ${객체명.변수} / ${객체명['변수명']}
+		  => private 변수에 직접접근 가능 (해당 set/get메서드를 호출)
+		 ${ 연산식 }
+		 
+		 * EL표현식 내장 객체
+		 
+		  pageScope / requestScope / sessionScope / applicationScope
+		  =>  각각의 영역에 정보 저장/공유 (jsp 내장객체랑 공유가능)
+		  
+		  param, paramValues
+		  => 파라메터 정보 처리
+		  
+		  header, headerValues
+		  => 해더 정보
+		  
+		  cookie
+		  => JSP 쿠키
+		  
+		  initParam
+		  => 초기화 정보
+		  
+		  pageContext
+		  => 페이지 정보
+		
+		
+		* 가상주소 - 상대경로
+		
+		1) 가상주소 호출
+		./test1 => ./ (프로젝트명) => /JSP/test1
+		
+		2) 실제주소 호출
+		./el/Attribute.jsp(.html.css.jpg) => ./ (webapp폴더) => /webapp/el/Attribute.jsp
+		
+		실제주소 - 절대경로
+		
+		/ (root-최상위폴더)
+		../ (상위폴더)
+		
+		
+		* JSTL(JSP Standard Tag Library) : 자카르타 회사(아파치)에서 제공하는 자주 사용되는 기능들을 모아놓은 커스텀 태그
+
+		1) CORE 라이브러리 : 기본적인 기능(변수, 출력, 조건문, 반복문, 페이지 이동, ...)
+		2) formatting 라이브러리 : 국제화/형식화 기능 (다국어, 날짜, 숫자 형식)
+		3) DataBase 라이브러리 : SQL 동작(DRUD)
+		4) XML 라이브러리 : XML 코드 처리
+		
+		<%@ taglib prefix="접두사" uri="태그의 주소" %>
+		
+		<JSP:forward> (액션태그)
+		
+		<c:out> 출력
+		<c:set><c:remove> 변수 설정, 삭제
+		<c:if><c:choose><c:when><c:otherwise> 제어문
+		<c:forEach><c:forEachTokens> 반복문
+		
+		
+		

@@ -1,0 +1,56 @@
+<%@page import="com.itwillbs.member.MemberDAO"%>
+<%@page import="com.itwillbs.member.MemberBean"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.DriverManager"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>memberInfo.jsp</h1>
+	
+	<h2> 로그인한 사용자의 개인정보 조회 페이지 </h2>
+	
+	<%
+	
+		// 한글처리
+		request.setCharacterEncoding("UTF-8");
+		// 로그인 제어 / 회원정보
+	 	String id = (String)session.getAttribute("id"); // (String) 참조형 형변환(downcasting) getArribute는 반환타입이 object이기 때문. 
+														// JSP내장객체로 JSP페이지에서만 쓸 수 있음
+	 	if(id == null){ //세션에서 받아온 id가 없다
+	 		response.sendRedirect("loginForm.jsp");
+	 	} //여기부터는 else영역이므로 굳이 추가의 로직(else구문)을 쓰지 않는다.
+	 	
+		// id에 해당하는 회원정보를 DB에서 조회
+		// => DB에 대한 처리 필요
+	 	
+		// MemberDAO 객체 생성
+		MemberDAO dao = new MemberDAO();
+		
+		// id 정보를 사용하여 회원정보 모두를 가져오기
+		MemberBean mb = dao.getMember(id);
+		
+		
+	%>
+	
+	<h3> 아이디 : <%=mb.getId() %></h3>
+	<h3> 비밀번호 : <%=mb.getPw() %> </h3>
+	<h3> 이름 : <%=mb.getName() %></h3>
+	<h3> 나이 : <%=mb.getAge() %></h3>
+	<h3> 성별 : <%=mb.getGender() %></h3>
+	<h3> 이메일 :<%=mb.getEmail() %></h3>
+	<h3> 회원가입일 : <%=mb.getRegdate() %></h3>
+	
+	<a href="main.jsp">메인페이지</a>
+	
+	
+	
+</body>
+</html>
