@@ -51,7 +51,58 @@ public class MemberFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		else if(command.equals("/MemberLogin.me")) {
+			System.out.println(" C : /MemberLogin.me 호출");
+			System.out.println(" C : [패턴1] DB 사용X, view 이동");
 		
+			forward = new ActionForward();
+			forward.setPath("./member/login.jsp");
+			forward.setRedirect(false);
+		}
+		else if(command.equals("/MemberIdCheck.me")) {
+			System.out.println("MemberIdCheck.me 호출");
+			System.out.println(" C : [패턴1] DB 사용X, view 이동");
+			
+			forward = new ActionForward();
+			forward.setPath("./member/idCheck.jsp");
+			forward.setRedirect(false);
+		}
+		else if(command.equals("/MemberIdCheckAction.me")) {
+			System.out.println(" C : /MemberIdCheckAction.me 호출");
+			System.out.println(" C : [패턴3] DB사용ㅇ, view출력");
+			
+			// MemberIdCheckAction 객체
+			action = new MemberIdCheckAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if (command.equals("/MemberLoginAction.me")) {
+			System.out.println(" C : /MemberLoginAction.me 호출");
+			System.out.println(" C : [패턴2] DB사용o, 페이지 이동");
+			
+			// MemberLoginAction 객체 
+			action = new MemberLoginAction();
+			
+			try {
+				action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+		else if (command.equals("/MemberMain.me")) {
+			System.out.println(" C : /MemberMain.me 호출");
+			System.out.println(" C : [패턴1] DB 사용X, view 이동");
+			
+			forward = new ActionForward();
+			forward.setPath("./main/main.jsp");
+			forward.setRedirect(false);
+		
+		}
 		
 		System.out.println(" C : 2. 가상주소 매핑(패턴1,2,3) 끝 \n");
 		// 3. 페이지 이동

@@ -5,5 +5,6 @@
     	// MVC 프로젝트의 시작지점
     	// 유일하게 실행가능한 jsp파일
     	
-    	response.sendRedirect("./MemberJoin.me");
+//     	response.sendRedirect("./MemberJoin.me");
+    	response.sendRedirect("./MemberLogin.me");
     %>
