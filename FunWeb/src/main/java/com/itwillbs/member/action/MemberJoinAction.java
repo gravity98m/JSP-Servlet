@@ -3,6 +3,7 @@ package com.itwillbs.member.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.itwillbs.member.db.MemberDAO;
 import com.itwillbs.member.db.MemberDTO;
 
 public class MemberJoinAction implements Action {
@@ -38,8 +39,16 @@ public class MemberJoinAction implements Action {
 		System.out.println(" M : dto : " + dto);
 		
 		// DAO 객체 생성 - 회원가입 메서드 호출
+		MemberDAO dao = new MemberDAO();
+		dao.memberJoin(dto);
+		System.out.println(" M : 회원가입 성공! ");
 		
-		return null;
+		// 페이지 이동(티켓 준비)
+		ActionForward forward = new ActionForward();
+		forward.setPath("./MemberLogin.me");
+		forward.setRedirect(true);
+		
+		return forward;
 	}
 
 }
