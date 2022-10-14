@@ -3,7 +3,7 @@
 
 <header>
 	<div id="login">
-		<a href="./member/login.jsp">login</a> | <a href="./MemberJoin.me">join</a>
+		<a href="./MemberLogin.me">login</a> | <a href="./MemberJoin.me">join</a>
 	</div>
 	<div class="clear"></div>
 	<!-- 로고들어가는 곳 -->
