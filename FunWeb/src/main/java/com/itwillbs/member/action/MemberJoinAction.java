@@ -16,7 +16,6 @@ public class MemberJoinAction implements Action {
 		// 전달된 정보 저장(회원가입 정보)
 		// DTO
 		MemberDTO dto = new MemberDTO();
-		
 		dto.setId(request.getParameter("id"));
 		dto.setPw(request.getParameter("pw"));
 		dto.setName(request.getParameter("name"));
@@ -26,16 +25,15 @@ public class MemberJoinAction implements Action {
 		dto.setTel(request.getParameter("tel"));
 
 		String[] birthArr = request.getParameterValues("birth");
-		System.out.println(" M : birthArr[0] : " + birthArr[0]);
-		System.out.println(" M : birthArr[1] : " + birthArr[1]);
-		System.out.println(" M : birthArr[2] : " + birthArr[2]);
+//		System.out.println(" M : birthArr[0] : " + birthArr[0]);
+//		System.out.println(" M : birthArr[1] : " + birthArr[1]);
+//		System.out.println(" M : birthArr[2] : " + birthArr[2]);
 	
-		if(birthArr != null) {
+		if(birthArr != null) { // 99-1-2
 			dto.setBirth(birthArr[0]+"-"+birthArr[1]+"-"+birthArr[2]);
 		}
+//		System.out.println(dto.getBirth()+"@@@@@@@@@@@@@@@");
 		
-		dto.setBirth(request.getParameter("birth"));
-
 		System.out.println(" M : dto : " + dto);
 		
 		// DAO 객체 생성 - 회원가입 메서드 호출
