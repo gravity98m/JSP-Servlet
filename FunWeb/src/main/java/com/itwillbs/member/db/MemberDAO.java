@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -124,36 +125,37 @@ public class MemberDAO {
 		}
 		// 아이디 중복체크 - memberIdCheck(ID)
 		
-		// 로그인 memberLogin(id,pw)
+		// 로그인 여부 체크 - memberLogin(id,pw)
 		public int memberLogin(String id, String pw) {
-			int result = 0;
+			int result = -1;
 			
 			try {
+				// 1.2. 디비연결
 				con = getConnection();
-				
-				sql = "select * from itwill_member where id=? and pw=?";
-				
-				
+				// 3.  sql & pstmt
+				sql = "select pw from itwill_member where id=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, id);
-				pstmt.setString(2, pw);
-				
 
+				// 4. sql 실행
 				rs = pstmt.executeQuery();
 				
-				MemberDTO dto = new MemberDTO();
-				
-				if(rs.next()) {
-
+				// 5. 데이터 처리
+				if(rs.next()) { // 해당하는 아이디가 있다
+					// 회원
 					if(pw.equals(rs.getString("pw"))) {
+						// 로그인 성공
 						result = 1;
-						
 					}else {
+						// 로그인 실패
 						result = 0; // 비밀번호 오류
 					}
 				}else {
+					// 비회원
 					result = -1; // 로그인 정보 없음
 				}
+				
+				System.out.println(" DAO : 로그인 체크("+result+")");
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -164,6 +166,47 @@ public class MemberDAO {
 			return result;
 			
 		}
-		// 로그인 memberLogin(id,pw)
+		// 로그인 여부 체크 - memberLogin(id,pw)
+		
+		// 회원정보 조회 - getMember(ID)
+		public MemberDTO getMember(String id) {
+			MemberDTO dto = null;
+			
+			try {
+				con = getConnection();
+				
+				sql = "select * from itwill_member where id=?";
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, id);
+				rs = pstmt.executeQuery();
+				
+				// 데이터 처리
+				if(rs.next()) {
+					dto = new MemberDTO();
+
+					dto.setId(rs.getString("id"));
+					dto.setPw(rs.getString("pw"));
+					dto.setName(rs.getString("name"));
+					dto.setBirth(rs.getString("birth"));
+					dto.setGender(rs.getString("gender"));
+					dto.setEmail(rs.getString("email"));
+					dto.setAddr(rs.getString("addr"));
+					dto.setTel(rs.getString("tel"));
+					
+					dto.setRegdate(rs.getTimestamp("regdate"));
+				}
+				System.out.println(" DAO : 회원 정보 저장완료!");
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				closeDB();
+			}
+			
+			return dto;
+			
+		}
+		// 회원정보 조회 - getMember(ID)
 		
 }

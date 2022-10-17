@@ -88,20 +88,59 @@ public class MemberFrontController extends HttpServlet {
 			action = new MemberLoginAction();
 			
 			try {
-				action.execute(request, response);
+				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
 		}
-		else if (command.equals("/MemberMain.me")) {
-			System.out.println(" C : /MemberMain.me 호출");
-			System.out.println(" C : [패턴1] DB 사용X, view 이동");
+		else if(command.equals("/Main.me")) {
+			System.out.println(" C : /Main.me 호출 ");
+			System.out.println(" C : [패턴1] DB사용X, view이동");
 			
 			forward = new ActionForward();
 			forward.setPath("./main/main.jsp");
-			forward.setRedirect(false);
-		
+			forward.setRedirect(false);			
+		}
+		else if(command.equals("/MemberLogout.me")) {
+			System.out.println(" C : /MemberLogout.me 호출");
+			System.out.println(" C : [패턴2] 비지니스로직, view이동"); // 작업을 수행 O -> 비지니스 로직
+
+			// MemberLogoutAction 객체
+			action = new MemberLogoutAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/MemberInfo.me")) {
+			System.out.println(" C : /MemberInfo.me 호출");
+			System.out.println(" C : [패턴3] DB사용O, 페이지출력");
+			
+			// MemberInfoAction 객체
+			action = new MemberInfoAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/MemberUpdate.me")) {
+			System.out.println(" C : /MemeberUpdate.me 호출");
+			System.out.println(" C : [패턴3] DB사용O, 페이지출력");
+			
+			// MemberUpdateAction 객체
+			action = new MemberUpdateAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		}
 		
 		System.out.println(" C : 2. 가상주소 매핑(패턴1,2,3) 끝 \n");
