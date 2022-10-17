@@ -70,7 +70,7 @@
 				<fieldset>
 					<legend>기본 정보</legend>
 					<label for="id">아이디</label> <input type="text" name="id" class="id">
-					<input type="button" value="중복체크" class="dup"  onclick="winopen();"><br>
+					<input type="button" value="중복체크" class="dup" onclick="winopen();"><br>
 					<label for="pw">비밀번호</label> <input type="password" name="pw"><br>
 					<label for="name">이 름</label> <input type="text" name="name"><br>
 					<label for="email">E-Mail</label> <input type="email" name="email"><br>
@@ -103,8 +103,8 @@
 				</fieldset>
 				<div class="clear"></div>
 				<div id="buttons">
-					<input type="submit" value="회원가입" class="submit"> <input
-						type="reset" value="초기화" class="cancel">
+					<input type="submit" value="회원가입" class="submit"> 
+					<input type="reset" value="초기화" class="cancel">
 				</div>
 			</form>
 		</article>
