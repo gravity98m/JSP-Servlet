@@ -27,16 +27,18 @@
  	
  	function fun1() {
  		alert('비밀번호 유효성 체크');
- 		
- 		// 아이디창에 아이디가 입력여부 확인
+
+ 		// 비밀번호창에 비밀번호 입력여부 확인
  		if(document.fr.pw.value == ""){
  			alert('비밀번호를 입력하세요!');
  			document.fr.pw.focus();
  			return;
  		}
  		
- 		// 입력된 아이디정보
+ 		// 입력된 비밀번호정보
  		var inputPW = document.fr.pw.value;
+ 		location.href='./MemberInfo.me'; // 원래 로직은 비밀번호를 확인하기 위해 넘어가야함
+ 		
  		
  	}
  </script>
@@ -63,16 +65,16 @@
 		<!-- 본문내용 -->
 		<article>
 			<h1>회원 정보 수정</h1>
-			<form action="" method="post" id="join" name="fr" onsubmit="alert('데이터 유효성체크 완료');">
+			<form action="" method="post" id="join" name="fr">
 				<fieldset>
 					<legend>기본 정보</legend>
-					<label for="id">아이디</label> <input type="text" name="id" class="id" value=${dto.id } readonly><br>
-					<label for="pw">비밀번호</label> <input type="password" name="pw" onsubmit="fun1()"><br>
-					<label for="name">이 름</label> <input type="text" name="name" value=${dto.name }><br>
-					<label for="email">E-Mail</label> <input type="email" name="email" value=${dto.email } readonly><br>
-					<label for="addr">주 소</label> <input type="text" name="addr" value=${dto.addr }><br>
-					<label for="tel">연락처</label> <input type="text" name="tel" value=${dto.tel }><br>
-					<label for="birth">생년월일 </label> 
+					<label>아이디</label> <input type="text" name="id" class="id" value=${dto.id } readonly><br>
+					<label>비밀번호</label> <input type="password" name="pw" class="pw"><br>
+					<label>이 름</label> <input type="text" name="name" value=${dto.name }><br>
+					<label>E-Mail</label> <input type="email" name="email" value=${dto.email } readonly><br>
+					<label>주 소</label> <input type="text" name="addr" value=${dto.addr }><br>
+					<label>연락처</label> <input type="text" name="tel" value=${dto.tel }><br>
+					<label>생년월일 </label> 
 						<select name=birth>
 							<option value="${dto.birth.split('-')[0] }">${dto.birth.split('-')[0] }년</option>
 							<c:forEach var="y" begin="2000" end="2022" step="1">
@@ -92,7 +94,7 @@
 							</c:forEach>
 						</select>
 					<hr>
-					<label for="gender">성 별</label> 
+					<label>성 별</label> 
 						<input type="radio" name="gender" value="남"
 							<c:if test="${dto.gender == '남' }">
 								checked
@@ -107,8 +109,8 @@
 				</fieldset>
 				<div class="clear"></div>
 				<div id="buttons">
-					<input type="submit" value="회원가입" class="submit"> <input
-						type="reset" value="초기화" class="cancel">
+					<input type="button" value="회원수정" class="submit" onclick="fun1();"> 
+					<input type="reset" value="초기화" class="cancel">
 				</div>
 			</form>
 		</article>
