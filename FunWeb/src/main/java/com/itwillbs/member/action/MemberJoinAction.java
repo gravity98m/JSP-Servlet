@@ -31,7 +31,7 @@ public class MemberJoinAction implements Action {
 		System.out.println(" M : birthArr[2] : " + birthArr[2]);
 	
 		if(birthArr != null) {
-			dto.setBirth(birthArr[0]+"."+birthArr[1]+"."+birthArr[2]);
+			dto.setBirth(birthArr[0]+"-"+birthArr[1]+"-"+birthArr[2]);
 		}
 		
 		dto.setBirth(request.getParameter("birth"));
