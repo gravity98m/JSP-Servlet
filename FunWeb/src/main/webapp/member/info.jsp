@@ -41,7 +41,10 @@
 		<nav id="sub_menu">
 			<ul>
 				<li><a href="./MemberUpdate.me">회원정보 수정</a></li>
-				<li><a href="#">회원정보 삭제</a></li>
+				<li><a href="./MemberDelete.me">회원정보 삭제</a></li>
+				<c:if test="${id.equals('admin')}">
+					<li><a href="./MemberAdmin.me">회원정보 관리</a></li>
+				</c:if>
 			</ul>
 		</nav>
 		<!-- 왼쪽메뉴 -->
