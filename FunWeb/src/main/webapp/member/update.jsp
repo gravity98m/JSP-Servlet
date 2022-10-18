@@ -25,21 +25,17 @@
  <script type="text/javascript">
 //  	alert('test');
  	
- 	function fun1() {
- 		alert('비밀번호 유효성 체크');
+ 	function checkPw() {
+ 		alert('데이터 유효성 체크 완료');
 
- 		// 비밀번호창에 비밀번호 입력여부 확인
- 		if(document.fr.pw.value == ""){
- 			alert('비밀번호를 입력하세요!');
+ 		// 비밀번호 입력x -> submit(x)
+ 		var pw = document.forms[0].pw.values;
+ 		//alert(pw);
+ 		if(pw == ""){
+ 			alert('비밀번호를 입력해주세요.');
  			document.fr.pw.focus();
- 			return;
+			return false; 			
  		}
- 		
- 		// 입력된 비밀번호정보
- 		var inputPW = document.fr.pw.value;
- 		location.href='./MemberInfo.me'; // 원래 로직은 비밀번호를 확인하기 위해 넘어가야함
- 		
- 		
  	}
  </script>
 </head>
@@ -65,7 +61,7 @@
 		<!-- 본문내용 -->
 		<article>
 			<h1>회원 정보 수정</h1>
-			<form action="" method="post" id="join" name="fr">
+			<form action="./MemberUpdatePro.me" method="post" id="join" name="fr" onsubmit="return checkPw();">
 				<fieldset>
 					<legend>기본 정보</legend>
 					<label>아이디</label> <input type="text" name="id" class="id" value=${dto.id } readonly><br>
@@ -109,7 +105,7 @@
 				</fieldset>
 				<div class="clear"></div>
 				<div id="buttons">
-					<input type="button" value="회원수정" class="submit" onclick="fun1();"> 
+					<input type="submit" value="회원수정" class="submit"> 
 					<input type="reset" value="초기화" class="cancel">
 				</div>
 			</form>
