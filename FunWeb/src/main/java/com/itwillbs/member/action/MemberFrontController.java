@@ -142,6 +142,66 @@ public class MemberFrontController extends HttpServlet {
 			}
 			
 		}
+		else if(command.equals("/MemberUpdatePro.me")) {
+			System.out.println(" C : /MemberUpdatePro.me 호출");
+			System.out.println(" C : [패턴2] DB사용O, view이동"); 
+			
+			// MemeberUpdateProAction 객체
+			action = new MemeberUpdateProAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+		else if (command.equals("/MemberDelete.me")) {
+			System.out.println(" C : /MemberDelete.me 호출");
+			System.out.println(" C : [패턴1] DB사용X, view이동");
+			
+			forward = new ActionForward();
+			forward.setPath("./member/delete.jsp");
+			forward.setRedirect(false);
+			
+		}
+		else if(command.equals("/MemberDeleteAction.me")) {
+			System.out.println(" C : /MemberDeleteAction.me 호출");
+			System.out.println(" C : [패턴2] DB사용o, view이동"); 
+			
+			action = new MemberDeleteAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/MemberAdmin.me")) {
+			System.out.println(" C : /MemberAdmin.me 호출");
+			System.out.println(" C : [패턴3] DB사용o, view 출력");
+			
+			// MemberAdminAction() 객체
+			action = new MemberAdminAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/MemberAdminDeleteAction.me")) {
+			System.out.println(" C : /MemberAdminDeleteAction.me 호출");
+			System.out.println(" C : [패턴2] DB사용o, 페이지 이동");
+			
+			action = new MemberAdminDeleteAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		
 		System.out.println(" C : 2. 가상주소 매핑(패턴1,2,3) 끝 \n");
 		// 3. 페이지 이동
