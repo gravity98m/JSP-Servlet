@@ -23,10 +23,10 @@ public class MemeberUpdateProAction implements Action {
 		dto.setEmail(request.getParameter("email"));
 		dto.setAddr(request.getParameter("addr"));
 		dto.setTel(request.getParameter("tel"));
+		dto.setGender(request.getParameter("gender"));
 		String birth = request.getParameterValues("birth")[0]+"-"+request.getParameterValues("birth")[1]+"-"+request.getParameterValues("birth")[2];
 		System.out.println(" M : "+birth);
-		dto.setBirth(request.getParameter("birth"));
-		dto.setGender(request.getParameter("gender"));
+		dto.setBirth(birth);
 		
 		System.out.println(" M : " +dto);
 		
@@ -47,6 +47,8 @@ public class MemeberUpdateProAction implements Action {
 			out.print("</script>");
 			out.close();
 			
+			
+			return null;
 		}else if(result == 0){
 			out.print("<script>");
 			out.print("alert('비밀번호 오류');");
@@ -54,16 +56,17 @@ public class MemeberUpdateProAction implements Action {
 			out.print("</script>");
 			out.close();
 			
+			return null;
 		}else { // result == 1
 			out.print("<script>");
-			out.print("alert('비밀번호 오류');");
-			out.print("history.back()");
+			out.print("alert('회원정보 수정완료');");
+			out.print("locaction.href='./MemberInfo.me';");
 			out.print("</script>");
 			out.close();
 			
+			return null;
 		}
 		
-		return null;
 	}
 
 }
