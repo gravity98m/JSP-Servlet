@@ -18,7 +18,7 @@
 	<!-- 로고들어가는 곳 -->
 	<nav id="top_menu">
 		<ul>
-			<li><a href="./Main.jsp">HOME</a></li>
+			<li><a href="./Main.me">HOME</a></li>
 			<li><a href="./company/welcome.jsp">COMPANY</a></li>
 			<li><a href="#">SOLUTIONS</a></li>
 			<li><a href="./center/notice.jsp">CUSTOMER CENTER</a></li>
