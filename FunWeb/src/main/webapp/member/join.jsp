@@ -103,7 +103,7 @@
 				</fieldset>
 				<div class="clear"></div>
 				<div id="buttons">
-					<input type="submit" value="회원가입" class="submit"> 
+					<input type="submit" value="회원가입" class="submit" onclick="return joinCheck();"> 
 					<input type="reset" value="초기화" class="cancel">
 				</div>
 			</form>
