@@ -113,13 +113,13 @@
 				<tr>
 					<td>상품 이미지(메인)</td>
 					<td>
-						<input type="file" name="file1">
+						<input type="file" name="file1" accept="image/*,.pdf">
 					</td>
 				</tr>
 				<tr>
 					<td>상품 이미지</td>
 					<td>
-						<input type="file" name="file2">
+						<input type="file" name="file2" accept=".jpg">
 					</td>
 				</tr>
 				<tr>
