@@ -1,7 +1,6 @@
 package com.itwillbs.admin.goods.action;
 
 import java.io.IOException;
-import java.util.Iterator;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -56,7 +55,7 @@ public class AdminGoodsFrontController extends HttpServlet {
 			System.out.println(" C : 패턴3");
 			
 			// AdminGoodsList() 객체 생성
-			action = new AdminGoodsList();
+			action = new AdminGoodsListAction();
 			
 			try {
 				forward = action.execute(request, response);
@@ -64,7 +63,47 @@ public class AdminGoodsFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
+		else if(command.equals("/adminGoodsModify.ag")) {
+			System.out.println(" C : /adminGoodsModify.ag 호출");
+			System.out.println(" C : 패턴3) 이동x");
+			
+			// AdminGoodsModifyAction() 객체
+			action = new AdminGoodsModifyAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/AdminGoodsModifyPro.ag")) {
+			System.out.println(" C : /AdminGoodsModifyPro.ag 호출");
+			System.out.println(" C : 패턴2 "); // 보여주지 않고 이동
+			
+			// AdminGoodsModifyProAction() 객체
+			action = new AdminGoodsModifyProAction();
+			
+			try {
+				forward  = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/adminGoodsDelete.ag")) {
+			System.out.println(" C : /adminGoodsDelete.ag 호출");
+			System.out.println(" C : 패턴2"); // 삭제
+			
+			// AdminGoodsDeleteAction() 객체
+			action = new AdminGoodsDeleteAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+		}
 		
 		System.out.println(" C : 2. 가상주소 매핑(패턴1,2,3) 끝 \n");
 		// 3. 페이지 이동
