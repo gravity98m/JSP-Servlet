@@ -11,6 +11,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import com.itwillbs.admin.goods.db.GoodsDTO;
+
 public class MemberDAO {
 	
 	private Connection con = null;
@@ -353,4 +355,5 @@ public class MemberDAO {
 			}
 		}
 		// 관리자 회원탈퇴 - adminMemberDelete(ID)
+		
 }

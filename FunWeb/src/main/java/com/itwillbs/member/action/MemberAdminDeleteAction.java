@@ -22,7 +22,7 @@ public class MemberAdminDeleteAction implements Action {
 		String id = (String) session.getAttribute("id");
 		
 		ActionForward forward = new ActionForward();
-		if (id == null || id.equals("admin")) {
+		if (id == null || !id.equals("admin")) {
 			forward.setPath("./MemberLogin.me");
 			forward.setRedirect(true);
 			return forward;
