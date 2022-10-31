@@ -78,6 +78,8 @@
 				</c:forEach>
 			</table>
 			<div id="table_search">
+				<input type="button" value="상품등록" class="btn" onclick="location.href='./AdminGoodsAdd.ag';"> 
+				
 			</div>
 			<div class="clear"></div>
 			<div id="page_control">
