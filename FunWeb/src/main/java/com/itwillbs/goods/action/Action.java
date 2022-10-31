@@ -1,0 +1,12 @@
+package com.itwillbs.goods.action;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.eclipse.jdt.internal.compiler.ast.ThrowStatement;
+
+public interface Action {
+	
+	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
+}
