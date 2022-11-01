@@ -47,7 +47,7 @@
 		</nav>
 		<!-- 왼쪽메뉴 -->
 		<!-- 내용 -->
-		<%-- ${goodsList.size()} --%>
+		<%-- ${goodsList} --%>
 		<article>
 			<h1>ITWILL's 쇼핑몰</h1>
 			<c:set var="size" value="${goodsList.size() }"/>
