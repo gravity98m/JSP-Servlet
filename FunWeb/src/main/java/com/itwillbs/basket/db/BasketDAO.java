@@ -12,6 +12,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import com.itwillbs.admin.goods.db.GoodsDTO;
+
 public class BasketDAO {
 	
 	private Connection con = null;
@@ -130,7 +132,7 @@ public class BasketDAO {
 	// 장바구니 상품 추가 - basketAdd(DTO)
 	
 	// 장바구니 목록 조회 - getBasketList(ID) // arrayList와 Vector과 유사한 기능 수행
-	public Vector BasketDTO (String id) {
+	public Vector getBasketList (String id) {
 		Vector totalList = new Vector();
 //		List basketList = new Vector(); 
 		List basketList = new ArrayList();
@@ -146,20 +148,76 @@ public class BasketDAO {
 			while(rs.next()) {
 				// 장바구니 정보 저장
 				// DB -> DTO -> List
+				BasketDTO bkDTO = new BasketDTO();
 				
+			   bkDTO.setB_date(rs.getTimestamp("b_date"));
+			   bkDTO.setB_g_amount(rs.getInt("b_g_amount"));
+			   bkDTO.setB_g_color(rs.getString("b_g_color"));
+			   bkDTO.setB_g_num(rs.getInt("b_g_num"));
+			   bkDTO.setB_g_size(rs.getString("b_g_size"));
+			   bkDTO.setB_m_id(rs.getString("b_m_id"));
+			   bkDTO.setB_num(rs.getInt("b_num"));
+			   
+			   basketList.add(bkDTO);
+//			   System.out.println(" DAO : " + basketList);
 					// 장바구니 상품에 해당하는 상품정보 조회
 					// DB -> DTO -> List
-					
+			   		sql = "select * from itwill_goods where gno=?"; //값은 하나만 출력될 것임 
+			   		PreparedStatement pstmt2 = con.prepareStatement(sql);
+			   		pstmt2.setInt(1,bkDTO.getB_g_num());
+			   		ResultSet rs2 = pstmt2.executeQuery();
+			   		
+			   		if(rs2.next()) {
+			   			// 장바구니 상품정보를 찾음 -> 저장
+			   			GoodsDTO gDTO = new GoodsDTO();
+			   			
+			   			gDTO.setName(rs2.getString("name"));
+			   			gDTO.setPrice(rs2.getInt("price"));
+			   			gDTO.setImage(rs2.getString("image"));
+			   			gDTO.setGno(rs2.getInt("gno"));
+			   			// ... 나머지 정보는 필요에 따라 추가
+			   			
+			   			// list 저장
+			   			goodsList.add(gDTO);
+			   		} // 상품정보 저장완료
+			   		
 			} // while
 			//totalList 저장
 			
+			totalList.add(basketList);
+			totalList.add(goodsList);
+			
+			System.out.println(" DAO : 장바구니 정보 + 상품정보 저장완료! ");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			closeDB();
 		}
 		
-		return null;
+		return totalList;
 	}
+	// 장바구니 목록 조회 - getBasketList(ID)
+	
+	// 장바구니 삭제 - deleteBasket(b_num)
+	public int deleteBasket(int b_num) {
+		int result = -1;
+		
+		try {
+			con = getConnection();
+			sql = "delete from itwill_basket where b_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, b_num);
+			result = pstmt.executeUpdate();
+			System.out.println(" DAO : " +b_num+"번 장바구니 삭제 완료");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+		
+		return result;
+	}
+	// 장바구니 삭제 - deleteBasket(b_num)
 	
 }
