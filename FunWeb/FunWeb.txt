@@ -34,7 +34,8 @@ FunWeb.txt
 	쇼핑몰 => 회원, 상품, 게시판, 주문, 배송, ... (1차 도메인) 테이블 
 		   => 회원가/비회원가
 		   
-	CREATE TABLE `jspdb`.`itwill_basket` (
+
+CREATE TABLE `jspdb`.`itwill_basket` (
   `b_num` INT NOT NULL,
   `b_m_id` VARCHAR(45) NOT NULL,
   `b_g_num` INT NOT NULL,
@@ -43,4 +44,67 @@ FunWeb.txt
   `b_g_color` VARCHAR(45) NOT NULL,
   `b_date` TIMESTAMP NOT NULL DEFAULT now(),
   PRIMARY KEY (`b_num`));
+		   
+		   
+	[ rs ]
+	
+	0 : 장바구니 1
+	1 : 장바구니 2
+	2 : 장바구니 3	   
+		   
+		   
+------------------------------------------------------------
+   
+   totalList - 0 
+
+ basketList 
+   [0][1][][][][][][][][][]
+
+------------------------------------------------------------
+totalList - 1 
+
+ goodsList
+    [0][1][][][][][][][][][]
+   
+------------------------------------------------------------
+		   
+		   
+	CREATE TABLE `jspdb`.`itwill_order` (
+  `o_num` INT NOT NULL COMMENT 'itwill_order테이블의 PK정보',
+  `o_trade_num` VARCHAR(100) NULL,
+  `o_g_num` INT NULL,
+  `o_g_name` VARCHAR(45) NULL COMMENT '주문한 상품 이름',
+  `o_g_amount` INT NULL COMMENT '주문상품수량',
+  `o_g_size` VARCHAR(45) NULL COMMENT '주문한상품옵션(사이즈)',
+  `o_g_color` VARCHAR(45) NULL COMMENT '주문한 상품옵션(색상)',
+  `o_m_id` VARCHAR(45) NULL,
+  `o_r_name` VARCHAR(45) NULL COMMENT '받는사람',
+  `o_r_phone` VARCHAR(100) NULL,
+  `o_r_addr1` VARCHAR(500) NULL COMMENT '받는사람 주소',
+  `o_r_addr2` VARCHAR(45) NULL COMMENT '받는사람상세주소',
+  `o_r_msg` VARCHAR(1000) NULL COMMENT '주문메세지',
+  `o_sum_money` INT NULL,
+  `o_trade_type` VARCHAR(45) NULL,
+  `o_trade_payer` VARCHAR(45) NULL,
+  `o_trade_date` TIMESTAMP NULL,
+  `o_trans_num` VARCHAR(100) NULL,
+  `o_date` TIMESTAMP NULL,
+  `o_status` INT NULL,
+  PRIMARY KEY (`o_num`));	   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+		   
 		   
