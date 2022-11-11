@@ -49,9 +49,21 @@ public class BasketAddAction implements Action {
 			dao.basketAdd(dto);
 			System.out.println(" M : 장바구니 추가");
 		}
-		// 페이지 이동
-		forward.setPath("./BasketList.ba");
-		forward.setRedirect(true);
+		// 사용자의 선택에 따라서 장바구니 페이지로 이동/상품리스트로 이동
+		String isMove = request.getParameter("isMove");
+		System.out.println(" M : isMove : "+isMove);
+		
+		if(isMove.equals("true")) {
+			// 페이지 이동
+			forward.setPath("./BasketList.ba");
+			forward.setRedirect(true);
+		}else {
+			// 페이지 이동
+			forward.setPath("./GoodsList.go");
+			forward.setRedirect(true);
+			
+		}
+		
 		
 		return forward;
 	}
