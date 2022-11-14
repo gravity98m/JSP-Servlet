@@ -1,5 +1,8 @@
 package com.itwillbs.order.action;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -8,6 +11,8 @@ import com.itwillbs.basket.db.BasketDAO;
 import com.itwillbs.goods.db.GoodsDAO;
 import com.itwillbs.member.db.MemberDAO;
 import com.itwillbs.member.db.MemberDTO;
+import com.itwillbs.order.db.OrderDAO;
+import com.itwillbs.order.db.OrderDTO;
 
 public class OrderAddAction implements Action {
 
@@ -17,7 +22,6 @@ public class OrderAddAction implements Action {
 		System.out.println(" M : OrderAddAction_execute() ");
 		
 		// 사용자 정보(세션제어 - 로그인 체크)
-		// 한글처리(생략)
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("id");
 		
@@ -28,22 +32,40 @@ public class OrderAddAction implements Action {
 			return forward;
 		}
 		
+		// 한글처리(생략)
 		// 전달된 주문 정보( 배송지+결제 )
-		request.getAttribute("o_r_addr2");
-		request.getAttribute("o_r_msg");
-		MemberDAO mDAO = new MemberDAO();
-		MemberDTO memberDTO = mDAO.getMember(id);
+		// (배송받는 사람, 주소(1,2), 전화번호, 메모, 구매방법, 구매자) + id
+		OrderDTO orDTO = new OrderDTO();
+		
+		orDTO.setO_r_name(request.getParameter("o_r_name"));
+		orDTO.setO_r_addr1(request.getParameter("o_r_addr1"));
+		orDTO.setO_r_addr2(request.getParameter("o_r_addr2"));
+		orDTO.setO_r_phone(request.getParameter("o_r_phone"));
+		orDTO.setO_r_msg(request.getParameter("o_r_msg"));
+		orDTO.setO_trade_payer(request.getParameter("o_t_payer"));
+		orDTO.setO_trade_type(request.getParameter("o_t_type"));
+		orDTO.setO_m_id(id);
+		
+		System.out.println(" M : "+orDTO);
 		
 		// 주문 상품정보(장바구니 + 상품정보)
 		BasketDAO bkDAO = new BasketDAO();
+		List totalList = bkDAO.getBasketList(id);
+		
+		// 장바구니 정보
+		ArrayList basketList = (ArrayList)totalList.get(0);
+		// 상품정보
+		ArrayList goodsList =(ArrayList)totalList.get(1);
 		
 		// 결제 호출 (JAVA 코드) // JAVA -> 모두 처리하고 되돌아옴 /ajax로 구현 -> 결과만 받아옴
+		System.out.println(" M : 결제 처리 완료! ");
 		
-		// 주문정보 저장
+		// 주문정보 저장 (구매한 상품 + 배송 + 주문)
+		OrderDAO orDAO = new OrderDAO();
+		orDAO.addOrder(orDTO, basketList, goodsList);
 		
 		// 메일,문자 전송 (책의 메일 구현 참고)
 		new Thread(new Runnable() { // 멀티스레드 + 익명객체
-			@Override
 			public void run() {
 				for(long i=0;i<1000000000L;i++); // 카운팅만 함(시간의 텀을 주기 위해)
 					System.out.println("메일 전송 완료");
@@ -51,13 +73,19 @@ public class OrderAddAction implements Action {
 		}).start();
 		
 		System.out.println(" 주문정보 저장완료! ");
+		
 		// 상품 개수 수정(판매량)
+		GoodsDAO gdao = new GoodsDAO();
+		gdao.updateAmount(basketList);
 		
 		// 장바구니 정보 삭제
+		bkDAO.deleteBasket(id);
 		
 		// 페이지 이동
+		forward.setPath("./OrderList.or");
+		forward.setRedirect(true);
 		
-		return null;
+		return forward;
 	}
 
 }
