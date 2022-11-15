@@ -55,8 +55,32 @@ public class OrderFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
-		
+		else if(command.equals("/OrderList.or")) {
+			System.out.println(" C : /OrderList.or 호출");
+			System.out.println(" C : [패턴3]");
+			
+			// OrderListAction
+			action = new OrderListAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/OrderDetail.or")) {
+			System.out.println(" C : /OrderDetail.or 호출");
+			System.out.println(" C : [패턴3]");
+			
+			// OrderDetailAction
+			action = new OrderDetailAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		System.out.println(" C : 2. 가상주소 매핑 끝 \n");
 		// 3. 페이지 이동
 		if(forward != null) {
